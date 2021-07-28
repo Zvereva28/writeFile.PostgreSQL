@@ -36,13 +36,11 @@ public class CreateFiles {
 
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
-        System.out.println("Testing connection to PostgreSQL JDBC");
-        Connection connection = null;
+        Connection connection;
         Class.forName("org.postgresql.Driver");
-        System.out.println("PostgreSQL JDBC Driver successfully connected");
         connection = DriverManager
                 .getConnection(Config.LOCALHOST.getUrl(), Config.LOCALHOST.getUser(), Config.LOCALHOST.getPassword());
-        System.out.println("You successfully connected to database now");
+        System.out.println("Успешное подключение к БД " + Config.LOCALHOST.getUrl() );
         return connection;
     }
 
@@ -59,13 +57,12 @@ public class CreateFiles {
 
     protected void writeFile(String name, String value) {
         Writer writer = null;
-
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
                     new FileOutputStream(Config.LOCALHOST.getPath() + name + ".txt"), "utf-8"));
             writer.write(value);
         } catch (IOException ex) {
-            System.out.println("При записи файла что то пошло не так");
+            System.out.println("При записи файла, что то пошло не так");
         } finally {
             try {
                 writer.close();
